@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listar productos de manera exitosa</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff"><link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
+<!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/>
+<!--CHART.JS-->
+<script src="chartjs/chart.js"></script>
+<script src="chartjs/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="chartjs/patternomaly.min.js"></script>
+<script>
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+</script>
+<!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<!-- ImgPreview -->
+<script src="scripts/imgpreview.full.jquery.js" type="text/javascript"></script>
+</head>
+
+<body class="results-page">
+
+
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle">Serenity BDD Report</span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+        <span class="breadcrumbs">
+            <a href="index.html" class="breadcrumbs">Home</a>
+
+ <!-- inflection.of(breadcrumb.displayName).asATitle()-->
+            > <a href="#">Api producto V1</a>
+ <!-- inflection.of(breadcrumb.displayName).asATitle()-->
+            > <a href="#">Requisito 4. Listar productos usando la api /api/v1/product/</a>
+        > Listar productos de manera exitosa
+        </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="bi bi-journal-check"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="bi bi-journal-text"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="bi bi-chat-text"></i> Capabilities</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 04-10-2024 21:48</span>
+    <br style="clear:left"/>
+</div>
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fs-2 bi bi-chat-left-quote title-icon"></i>
+                                        <span class="story-header-title">Requisito 4. Listar Productos Usando La Api /api/V1/Product/ </span>
+                                    </h3>
+
+                                </div>
+
+                        </td>
+                        <td valign="top">
+                            <p class="tag">
+                                    <span class="badge example-tag tag-badge" style="background:default;">
+                                    <i class="bi bi-tag-fill"></i>&nbsp;
+                                        <a class="tagLink" style="background:default;"
+                                           href="6c5512236937b92cd7a296b24edb966c2bd94be46b8910f8b129a42d6150eb25.html">1 To 10 Seconds
+                                              (Duration)
+                                        </a>
+                                </span>
+                                    
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="success-color">
+                                    Listar productos de manera exitosa
+                                        <span class="related-issue-title"></span>
+                                </span>
+                            </span>
+
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <!-- CAST MEMBERS -->
+            <div>&nbsp;</div>
+            <div>
+                <h3 class="discreet-story-header">
+                    <i class="fs-2 bi bi-people large-icon"></i>
+                    <span class="story-header-title">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#castDetails"
+                           role="button" aria-expanded="true" aria-controls="castDetails">Cast</a>
+                    </span>
+                </h3>
+            </div>
+            <div class="collapse multi-collapse" id="castDetails">
+                <table class="cast">
+                    <tr>
+                            <td width="100%">
+                                <h4>
+                                    <i class="fs-2 bi bi-person"></i>&nbsp;
+                                    <span>
+                                        <a data-toggle="collapse" href="#abilities-Tester"
+                                           aria-expanded="false" aria-controls="abilities">Tester</a>
+                                        
+                                    </span>
+                                </h4>
+                                <div class="collapse multi-collapse" id="abilities-Tester">
+                                        <div>
+                                            <span class="cast-description">Tester can:</span>
+                                            <ul>
+                                                    <li>call an API at http://localhost:8081</li>
+                                            </ul>
+                                        </div>
+                                </div>
+                            </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+    <!-- END CAST MEMBERS -->
+
+
+</div>
+</div>
+
+<div class="clr"></div>
+
+
+<div id="beforetable"></div>
+
+
+<div id="tablecontents">
+    <div>
+        <table class="step-table">
+            <tr class="step-titles">
+                <th width="65">
+                </th>
+                <th class="step-description-column greentext">
+                    Steps
+                </th>
+
+                <th width="130" class="greentext">Outcome</th>
+                <th width="100" class="greentext"><i title="Duration" class="bi bi-stopwatch"></i></th>
+            </tr>
+            <tr class="step-table-separator">
+                <td colspan="5"></td>
+            </tr>
+
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="0"></a>
+                            <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                               style="display:block">
+                                <i class="bi bi-caret-right-square imgstepSection0 success-icon"
+                                   style="margin-left: 20px; float:left; padding-right:5px"></i>
+                            </a>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                            <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                               style="display:block;">
+                                <span class="top-level-step">
+                                                Tester executes a GET on the resource /api/v1/product/
+                                        </span>
+                            </a>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">5s 621ms</span></td>
+                </tr>
+                    <tr>
+                        <td colspan="5">
+                            <table id="stepSection0" class="step-table-nested" style="display:none;">
+                <tr class="test-SUCCESS">
+
+                    <td width="70" class="step-icon">
+                        <a name="0-0"></a>
+                            <span style="margin-left: 40px;"
+                                  class="nested-group-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="nested-group-step">
+                                                GET http://localhost:8081/api/v1/product/
+                                        </span>
+                            <span class="evidence">
+                                        <span class="piece-of-evidence">
+                <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-2">
+                            REST Query
+                        </button>
+                    </span>
+                <!-- Modal -->
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="restModal-REST-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Response</h4>
+                                    <p>URL: http://localhost:8081/api/v1/product/</p>
+                                    <p>Status code: 200</p>
+                                    <p>Content Type: application/json</p>
+                                    <h4>Request Headers</h4>
+                                    <pre>Accept=application/json, application/javascript, text/javascript, text/json<br>User-Agent=JBEnteprise<br>Authorization=Bearer aGFzaGRzZnNkZnNkZnNkZnNk<br>Content-Type=application/json</pre>
+                                    <h4>Response Headers</h4>
+                                    <pre>Content-Type: application/json<br>Transfer-Encoding: chunked<br>Date: Sat, 05 Oct 2024 02:48:52 GMT<br>Keep-Alive: timeout=60<br>Connection: keep-alive</pre>
+                                <h4>Response Body</h4>
+                                    <pre>{<br>    &quot;products&quot;: [<br>        {<br>            &quot;id&quot;: 1,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;659b0727-65f1-4faf-a665-430189150b95&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 2,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;61569611-98db-4ad2-bda2-496b8a8b4415&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 3,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;b9f4572e-ff26-481f-ac07-cdc13b32e095&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 5,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;8b2026e2-e361-4ecb-8fa2-aa8e192d2016&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 6,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;be92432b-6221-4a3d-b3d8-2637848e9b3e&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 7,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;9c330112-2035-4a9b-8343-76f1f79b76a4&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 9,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;63805f5c-73d0-46de-81b3-823a99af2297&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 10,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;87be837d-0d3c-4a34-8564-181c6831083f&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 11,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;e3bce930-8a13-4f95-a17c-360a58016ccf&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 13,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;2a63141a-0d70-40d6-90be-cd29c9f11804&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 14,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;e89753a0-7d98-4aa8-8b96-9be29496ab8d&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 15,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;6286dd8c-e571-4db8-8ad3-f71952380f8f&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 17,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;c48142a5-1b07-446c-ac8f-51c45a21553e&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 19,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;77647f1d-9ed7-433c-9fc0-7af6ed949335&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 20,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;050f0d75-6a6b-4831-89e2-88eac5d3b81a&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 21,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;6cbef400-bde0-4748-a52e-c49aa9795bd2&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 22,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;f43832f8-8c79-4896-9f78-2bbefad1e812&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 23,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;253cadca-0b53-4853-a975-f00c6c37f36d&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 25,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;91664979-56e1-4d7b-b595-e8168692e897&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 26,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;d3053d6e-23a9-4e3d-ac87-e16fcad802d2&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 28,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;9b753331-8ea5-4f2d-bd56-2979fbc5a623&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 29,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;ca1377c7-43f0-422f-84b8-6af6466aea14&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 30,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;eabd4a1a-984c-44c2-a0cb-39e6c931f401&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 31,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;5cd4fc55-d83d-4d06-85ee-f15f0e99c1c1&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 34,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;4b59136d-cd68-49da-a650-63eba55f36cd&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 35,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;2f535ed5-8eb5-4c24-8586-32c6ad9f38c6&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 36,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;1f8f47d2-5304-4674-836a-57c7ccb0696a&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 39,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;e07b0657-6402-4944-9ec0-410397fea957&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 40,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;40782e69-9af0-4951-af55-ee696a824956&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 41,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;265c53a6-386c-4111-823b-ceebfadf46d3&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 44,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;7f656d01-5a51-455a-ac5e-599e60453ce8&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 45,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;c4ed94d8-5400-4032-b951-56b5f30aa66e&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 46,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;d5a0f31f-7ed6-4c8b-82a9-7a138a8f083c&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 47,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;9d1c17b4-61ef-4d8d-b5da-b006e0ec4365&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 49,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;fd5f0017-484f-41c6-ba1d-8928a0967ce5&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 50,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;7a340d90-a043-4b35-a5cb-44bb15a04b0d&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 51,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;e5912939-66f9-4362-940c-cdcbf94cf6f5&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 52,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;e9698f83-a51b-4b05-a177-ee652f7a6c42&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 54,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;2f2e9187-a8bf-4c21-8371-b5c7ebf2d913&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 55,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;3df7fc26-57e3-4134-8014-c5a9234c5fe6&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 56,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;57f5978c-6132-4d31-a283-512773be82c8&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 57,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;0fcc421a-7fc6-4fa5-a0ac-890d834ff425&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 59,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;884f8ff3-e8a2-4fa9-a796-87a8ba823e6f&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 60,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;fab56e9c-b1db-4473-ad4a-97359666cbab&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 61,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;63093445-8cde-4d46-9dda-9f540bb2f717&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 62,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;273c92e7-2521-49b2-9d70-10babec87496&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 63,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;e5351c6a-1667-4036-a855-41bd4f478393&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 65,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;1f090c5a-6947-4378-8183-e1542957a317&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 66,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;2c877c5c-1f30-4c2b-bb23-7f9b64b84dc0&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 67,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;1eab8376-0449-409a-9973-cbb6ae07fe38&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 68,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;e4dcf3a2-bce6-45a6-89a0-72ca06e14b77&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 69,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;6717beaa-fcfd-47b0-9fa9-7b2ffe8428d5&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 71,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;babff6c9-0b63-4cd6-abae-5b7e1ecc1aef&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 72,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;35a18fa1-9820-492c-9f2f-58ce8498502c&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 73,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;10fa0f40-3de3-49ac-92dc-73a52b0bdf38&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 74,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;3561a28a-27f7-4469-a2c9-5b56ad24f5b5&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 75,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;cfe99548-15f5-4044-ae26-7919b86ff8be&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 77,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;8dfb1aa8-67e5-4e6b-8b51-9f435f63b959&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 78,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;705c1200-4b6b-4d40-b39f-8e89258c76bf&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 79,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;5b294995-0245-412f-abc6-4ad6d8d560e0&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 80,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;632d6f83-b2a6-47bb-8bee-dbda7850d118&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 81,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;a32486f2-ec58-4ca3-9d4d-f29d3ce1fde7&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 83,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;97572b56-f332-4407-8fef-341af98ce6e1&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 84,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;e1a7b3cc-c8bb-4bfb-ac61-ce338ce33415&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 85,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;239d6d26-8adb-46a5-abb6-6c3f83b604ac&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 86,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;94216a5d-d560-4d6b-b897-16a20d85fe41&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 87,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;c1149f9c-07d5-4464-9a62-718b03099ef0&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 89,<br>            &quot;name&quot;: &quot;Iphone 3000 Actualizado&quot;,<br>            &quot;sku&quot;: &quot;dc2acc6e-e4e0-4933-8cca-283a15a932d1&quot;,<br>            &quot;description&quot;: &quot;Descripcion actualizada&quot;,<br>            &quot;price&quot;: 4000.0<br>        },<br>        {<br>            &quot;id&quot;: 90,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;86bc01ac-a3c8-4972-a004-cef13ef1291c&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 91,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;3dc2b7c1-c211-4d4c-9392-5c5afa0b076b&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 92,<br>            &quot;name&quot;: &quot;Iphone 2000&quot;,<br>            &quot;sku&quot;: &quot;40492ed7-9053-4164-9e1a-c9dd01a859cd&quot;,<br>            &quot;description&quot;: &quot;Teelfono de alta gama&quot;,<br>            &quot;price&quot;: 3000.0<br>        },<br>        {<br>            &quot;id&quot;: 93,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;b9d11226-c763-41d1-89b4-eac2880e972f&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        },<br>        {<br>            &quot;id&quot;: 95,<br>            &quot;name&quot;: &quot;Iphone 4000&quot;,<br>            &quot;sku&quot;: &quot;0044ed1a-dd60-42ef-b920-f06c8baed343&quot;,<br>            &quot;description&quot;: &quot;Telefono de alta gama&quot;,<br>            &quot;price&quot;: 3800.0<br>        }<br>    ],<br>    &quot;status&quot;: true,<br>    &quot;message&quot;: &quot;Se encontró 73 producto(s)&quot;<br>}</pre>
+                                    <h4>Response Cookies</h4>
+                                    <pre></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                        </span>
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                    <td width="100"><span class="nested-group-step">059ms</span></td>
+                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="1"></a>
+                            <span style="margin-left: 20px;"
+                                  class="top-level-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="top-level-step">
+                                                El c&oacute;digo de respuesta es 200
+                                        </span>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">071ms</span></td>
+                </tr>
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="2"></a>
+                            <span style="margin-left: 20px;"
+                                  class="top-level-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="top-level-step">
+                                                El valor del atributo status debe ser verdadero
+                                        </span>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">1s 930ms</span></td>
+                </tr>
+            <tr class="test-SUCCESS">
+                    <td colspan="2"></td>
+                <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
+                <td width="100"><span class="top-level-step"><em>6.28s</em></span></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div id="beforefooter"></div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="version">Serenity BDD version 4.0.14</span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function toggleDiv(divId) {
+        $("#" + divId).toggle();
+        var $icon = $(".img" + divId);
+        $icon.toggleClass("bi-caret-right-square");
+        $icon.toggleClass("bi-caret-down-square");
+    }
+</script>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(document).ready(function () {
+        $('img.screenshot').imgPreview({
+            imgCSS: {
+                width: '500px'
+            },
+            distanceFromCursor: {top: 10, left: -200}
+        });
+    });
+
+    //]]>
+</script>
+<div id="imgPreviewContainer" style="position: absolute; top: 612px; left: 355px; display: none; " class=""><img
+            src="" style="display: none; "></div>
+<div id="imgPreviewContainer2" style="position: absolute; top: 925px; left: 320px; display: none; " class="">
+    <img style="width: 200px; display: none; " src=""></div>
+<div id="imgPreviewWithStyles" style="position: absolute; top: 1272px; left: 321px; display: none; " class="">
+    <img style="height: 200px; opacity: 1; display: none; " src=""></div>
+<div id="imgPreviewWithStyles2" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+<div id="imgPreviewWithStyles3" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+
+</div>
+</body>
+</html>

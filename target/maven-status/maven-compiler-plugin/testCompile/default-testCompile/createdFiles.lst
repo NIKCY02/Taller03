@@ -1,0 +1,8 @@
+ApiProductoV1\config\ApiConfig.class
+ApiProductoV1\ListarProductoTest.class
+ApiProductoV1\CrearProductoTest.class
+ApiProductoV1\dto\ProductRequest$ProductRequestBuilder.class
+ApiProductoV1\dto\ProductRequest.class
+ApiProductoV1\EliminarProductoTest.class
+ApiProductoV1\pregunta\CodigoRespuesta.class
+ApiProductoV1\ActualizarProductoTest.class
